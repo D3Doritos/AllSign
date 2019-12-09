@@ -101,6 +101,18 @@ div.field {
   font-size: 200px;
   color: white;
   font-family: myFirstFont;
+  min-width: 500px;
+  width: 500px;
+  height: 285px;
+  min-height: 285px;
+}
+h1 {
+  font-size: 200px;
+  color: white;
+  min-width: 500px;
+  width: 500px;
+  height: 285px;
+  min-height: 285px;
 }
 .signFontSmall {
   font-size: 50px;
@@ -144,4 +156,16 @@ div.field {
   padding: 0em;
   position: absolute;
   width: 105%;
+}
+
+#quiz {
+  display: flex;
+  align-items: baseline;
+}
+
+button.ui.button.answer {
+  width: 150px;
+  min-width: 150px;
+  height: 100px;
+  min-height: 100px;
 }

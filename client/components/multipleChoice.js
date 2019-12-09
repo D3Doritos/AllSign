@@ -182,8 +182,9 @@ class multipleC extends Component {
           <div id="quiz">
             {this.state.choices.map(e => {
               return (
-                <div id="choices" className="ui segment">
+                <Segment key="quizseg">
                   <Button
+                    className="answer"
                     type="button"
                     key={e}
                     val={e}
@@ -195,7 +196,7 @@ class multipleC extends Component {
                       <p className="signFontSmall">{e}</p>
                     )}
                   </Button>
-                </div>
+                </Segment>
               )
             })}
           </div>
