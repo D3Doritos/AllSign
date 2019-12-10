@@ -42,15 +42,17 @@ const Interactive = () => {
               <text className="signFont">
                 If your ready to start learning hit the start button.
               </text>
-              <WebcamModal />
             </Grid.Column>
-            <Grid.Column floated="right" width={6}>
-              <Image
-                bordered
-                rounded
-                size="large"
-                src="https://www.aussiedeafkids.org.au/site/resized/80-03062015182514-35-55-690-250-1070x390-cropped-dreamstime_s_34718081.jpg"
-              />
+            <Grid.Column id="modalgrid" floated="right" width={6}>
+              <div id="modaldiv">
+                <Image
+                  bordered
+                  rounded
+                  size="large"
+                  src="https://www.aussiedeafkids.org.au/site/resized/80-03062015182514-35-55-690-250-1070x390-cropped-dreamstime_s_34718081.jpg"
+                />
+                <WebcamModal />
+              </div>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
