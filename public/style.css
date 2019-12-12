@@ -131,7 +131,9 @@ h1 {
   justify-content: center;
   color: white;
   top: 15%;
-  left: 40%;
+  left: 50%;
+  right: 50%;
+  align-items: center;
 }
 
 #choices {
@@ -185,4 +187,51 @@ div#modaldiv {
 #modalbox {
   display: flex;
   align-items: center;
+}
+#incorrect {
+  position: absolute;
+  right: 365px;
+}
+#correct {
+  position: absolute;
+  right: 365px;
+}
+#Letters {
+  display: flex;
+  position: absolute;
+  top: 340px;
+  flex-flow: wrap;
+  /* left: 00px; */
+  width: 2000px;
+  justify-content: center;
+  height: 600px;
+  -webkit-writing-mode: vertical-lr;
+  right: 10px;
+}
+#letterbutton {
+  height: 70px;
+  width: 80px;
+  display: flex;
+  margin: auto;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+div.signFont {
+  font-weight: 100;
+}
+.signFontSmall {
+  font-size: 140px;
+  color: black;
+  font-family: myFirstFont;
+  font-weight: 100;
+  bottom: 60px;
+  position: absolute;
+}
+.letterAnswers {
+  font-size: -webkit-xxx-large;
+}
+
+#displaySign {
 }

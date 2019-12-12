@@ -83,24 +83,24 @@ class WebcamModal extends Component {
       >
         <Modal.Header>Submit a Photo</Modal.Header>
         <Modal.Content id="modalbox" image>
+          <div id="correct" className="ui success message" hidden={true}>
+            <div className="content">
+              <div className="header">Good Job!</div>
+              <p>You can now move on to the next hand sign</p>
+            </div>
+          </div>
+          <div id="incorrect" hidden={true} className="ui negative message">
+            <div className="header">sorry that is not quite right</div>
+            <p>try again</p>
+          </div>
           <>
             <div id="webcam-container" />
           </>
           <Modal.Description>
             <Header>Make the displayed hand sign</Header>
             <Image id="desiredHandSign" src={this.state.currentImg} />
-            <div id="correct" className="ui success message" hidden={true}>
-              <div className="content">
-                <div className="header">Good Job!</div>
-                <p>You can now move on to the next hand sign</p>
-              </div>
-            </div>
-            <div id="incorrect" hidden={true} className="ui negative message">
-              <div className="header">sorry that is not quite right</div>
-              <p>try again</p>
-            </div>
             <p>Please keep the hand used to sign in the box for the photo</p>
-            <Button onClick={this.handleTest}>Begin</Button>
+            <Button onClick={this.handleTest}>Test</Button>
             <button
               id="next"
               type="button"

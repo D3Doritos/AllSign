@@ -160,23 +160,29 @@ class multipleC extends Component {
       <div>
         <Navbar />
         <div id="multipleChoice">
-          <h1>
+          <h1 style={{height: '40px'}}>
             Your score: {this.state.score}/{this.state.totalQuest}
           </h1>
-          <h2>What {this.state.type} is this?</h2>
-          <h1>
+          <h2 style={{height: '40px', width: '500px'}}>
+            What {this.state.type} is this?
+          </h2>
+          <h1 style={{display: 'flex', height: '100px'}}>
             {this.state.questionType !== 'gesture' ? (
-              this.state[this.state.questionType][
-                this.state[this.state.type].indexOf(this.state.answer)
-              ]
-            ) : (
-              <p className="signFont">
+              <div style={{fontSize: '-webkit-xxx-large'}}>
                 {
                   this.state[this.state.questionType][
                     this.state[this.state.type].indexOf(this.state.answer)
                   ]
                 }
-              </p>
+              </div>
+            ) : (
+              <div id="displaySign" className="signFont">
+                {
+                  this.state[this.state.questionType][
+                    this.state[this.state.type].indexOf(this.state.answer)
+                  ]
+                }
+              </div>
             )}
           </h1>
           <div id="quiz">
@@ -191,9 +197,9 @@ class multipleC extends Component {
                     onClick={() => this.onClick(e)}
                   >
                     {this.state.questionType === 'gesture' ? (
-                      e
+                      <div className="letterAnswers">{e}</div>
                     ) : (
-                      <p className="signFontSmall">{e}</p>
+                      <div className="signFontSmall">{e}</div>
                     )}
                   </Button>
                 </Segment>

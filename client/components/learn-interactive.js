@@ -20,6 +20,8 @@ import {webcam} from '@tensorflow/tfjs-data'
 import {Navbar} from '.'
 import {Footer} from './footer'
 import {cpus} from 'os'
+import SidebarMenu from './sidebar'
+import CommentExampleComment from './sidebar'
 
 const Interactive = () => {
   return (
