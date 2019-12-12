@@ -1,12 +1,13 @@
 import React from 'react'
 import {Navbar} from '.'
 import {Footer} from './footer'
+import TableExampleCollapsing from './sidebar'
 
 const Leaderboard = () => {
   return (
     <div>
       <Navbar />
-      Highscores Here
+      <TableExampleCollapsing />
       <Footer />
     </div>
   )

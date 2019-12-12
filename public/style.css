@@ -22,6 +22,7 @@ form div {
 
 #app {
   height: 110%;
+  width: 110%;
   margin: 0;
   padding: 0;
   background-image: url('./images/Business-background-backgrounds-business-background-image-PixTeller.png');
@@ -101,6 +102,18 @@ div.field {
   font-size: 200px;
   color: white;
   font-family: myFirstFont;
+  min-width: 500px;
+  width: 500px;
+  height: 285px;
+  min-height: 285px;
+}
+h1 {
+  font-size: 200px;
+  color: white;
+  min-width: 500px;
+  width: 500px;
+  height: 285px;
+  min-height: 285px;
 }
 .signFontSmall {
   font-size: 50px;
@@ -118,7 +131,9 @@ div.field {
   justify-content: center;
   color: white;
   top: 15%;
-  left: 40%;
+  left: 50%;
+  right: 50%;
+  align-items: center;
 }
 
 #choices {
@@ -144,4 +159,79 @@ div.field {
   padding: 0em;
   position: absolute;
   width: 105%;
+}
+
+#quiz {
+  display: flex;
+  align-items: baseline;
+}
+
+button.ui.button.answer {
+  width: 150px;
+  min-width: 150px;
+  height: 100px;
+  min-height: 100px;
+}
+div#modaldiv {
+  display: flex;
+  justify-content: center;
+}
+#modalgrid {
+  bottom: 150px;
+}
+
+#desiredHandSign {
+  width: 200px;
+  left: 400px;
+}
+#modalbox {
+  display: flex;
+  align-items: center;
+}
+#incorrect {
+  position: absolute;
+  right: 365px;
+}
+#correct {
+  position: absolute;
+  right: 365px;
+}
+#Letters {
+  display: flex;
+  position: absolute;
+  top: 340px;
+  flex-flow: wrap;
+  /* left: 00px; */
+  width: 2000px;
+  justify-content: center;
+  height: 600px;
+  -webkit-writing-mode: vertical-lr;
+  right: 10px;
+}
+#letterbutton {
+  height: 70px;
+  width: 80px;
+  display: flex;
+  margin: auto;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+div.signFont {
+  font-weight: 100;
+}
+.signFontSmall {
+  font-size: 140px;
+  color: black;
+  font-family: myFirstFont;
+  font-weight: 100;
+  bottom: 60px;
+  position: absolute;
+}
+.letterAnswers {
+  font-size: -webkit-xxx-large;
+}
+
+#displaySign {
 }

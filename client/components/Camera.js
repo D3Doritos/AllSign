@@ -4,93 +4,116 @@ import {Button, Header, Image, Modal} from 'semantic-ui-react'
 import axios from 'axios'
 import * as tf from '@tensorflow/tfjs'
 import * as tmImage from '@teachablemachine/image'
+let webcam = new tmImage.Webcam(200, 200, true)
 
-const WebcamModal = () => {
-  const URL = 'https://teachablemachine.withgoogle.com/models/NeX9xVyz/'
+class WebcamModal extends Component {
+  constructor() {
+    super()
+    this.state = {
+      count: 0,
+      currentImg: require('../../public/images/0.jpg'),
+      correct: true
+    }
+    this.init = this.init.bind(this)
+    this.handleTest = this.handleTest.bind(this)
+    this.handleNext = this.handleNext.bind(this)
+  }
 
-  let model, webcam, labelContainer, maxPredictions
-
-  // Load the image model and setup the webcam
-  async function init() {
-    // const uploadModel = document.getElementById('upload-model');
-    // const uploadWeights = document.getElementById('upload-weights');
-    // const uploadMetadata = document.getElementById('upload-metadata');
-    // console.log(uploadModel)
-    // model = await tmImage.loadFromFiles(uploadModel.files[0], uploadWeights.files[0], uploadMetadata.files[0])
-    // load the model and metadata
-    // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-    // or files from your local hard drive
-    // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-    const modelURL = URL + 'model.json'
-    const metadataURL = URL + 'metadata.json'
-
-    model = await tmImage.load(modelURL, metadataURL)
-    maxPredictions = model.getTotalClasses()
-
-    // Convenience function to setup a webcam
-    const flip = true // whether to flip the webcam
-    webcam = new tmImage.Webcam(200, 200, flip) // width, height, flip
+  async init() {
     await webcam.setup() // request access to the webcam
     await webcam.play()
+    const loop = () => {
+      webcam.update() // update the webcam frame
+      window.requestAnimationFrame(loop)
+    }
     window.requestAnimationFrame(loop)
 
     // append elements to the DOM
     document.getElementById('webcam-container').appendChild(webcam.canvas)
+    document.getElementById('next').disabled = true
+    let correct = document.getElementById('correct')
+    correct.hidden = true
+    let incorrect = document.getElementById('incorrect')
+    incorrect.hidden = true
   }
-
-  async function loop() {
-    webcam.update() // update the webcam frame
-    window.requestAnimationFrame(loop)
-  }
-
-  // run the webcam image through the image model
-  async function predict() {
-    // predict can take in an image, video or canvas html element
-    const prediction = await model.predict(webcam.canvas)
-  }
-  async function handleTest() {
+  async handleTest() {
+    let correct = document.getElementById('correct')
+    let incorrect = document.getElementById('incorrect')
+    incorrect.hidden = true
+    const modelURL =
+      'https://teachablemachine.withgoogle.com/models/NeX9xVyz/model.json'
+    const metadataURL =
+      'https://teachablemachine.withgoogle.com/models/NeX9xVyz/metadata.json'
+    let count = this.state.count
+    let model = await tmImage.load(modelURL, metadataURL)
     const handSign = await model.predict(webcam.canvas)
-    console.log(handSign[0].probability)
-    if (handSign[0].probability < 1 && handSign[0].probability > 0.7) {
-      alert('That is 0')
-    } else if (handSign[1].probability < 1 && handSign[1].probability > 0.7) {
-      alert('That is 1')
-    } else if (handSign[2].probability < 1 && handSign[2].probability > 0.7) {
-      alert('That is 2')
-    } else if (handSign[3].probability < 1 && handSign[3].probability > 0.7) {
-      alert('That is 3')
-    } else if (handSign[4].probability < 1 && handSign[4].probability > 0.7) {
-      alert('That is 4')
-    } else if (handSign[5].probability < 1 && handSign[5].probability > 0.7) {
-      alert('That is 5')
-    } else if (handSign[6].probability < 1 && handSign[6].probability > 0.7) {
-      alert('That is 6')
-    } else if (handSign[7].probability < 1 && handSign[7].probability > 0.7) {
-      alert('That is 7')
-    } else if (handSign[8].probability < 1 && handSign[8].probability > 0.7) {
-      alert('That is 8')
+    if (handSign[count].probability < 1 && handSign[count].probability > 0.7) {
+      this.setState({correct: true})
+      correct.hidden = false
+      document.getElementById('next').disabled = false
+    } else {
+      this.setState({correct: false})
+      setTimeout(function() {
+        incorrect.hidden = false
+      }, 3000)
+      document.getElementById('next').disabled = true
     }
   }
 
-  return (
-    <Modal onOpen={init} trigger={<Button id="webcam-button">Start</Button>}>
-      <Modal.Header>Submit a Photo</Modal.Header>
-      <Modal.Content image>
-        <>
-          <div id="webcam-container" />
-        </>
-        <Modal.Description>
-          <Header>Make the displayed hand sign</Header>
-          <p>Please keep the hand used to sign in the box for the photo</p>
-          {/* <input id='upload-model' type='file'/> 
-         <input id='upload-weights' type='file'/>
-          <input id='upload-metadata' type='file'/> */}
-          {/* <Button onClick={init}>Start</Button> */}
-          <Button onClick={handleTest}>Test</Button>
-        </Modal.Description>
-      </Modal.Content>
-    </Modal>
-  )
+  handleNext() {
+    document.getElementById('next').disabled = true
+    const count = this.state.count
+    let correct = document.getElementById('correct')
+    correct.hidden = true
+    this.setState({
+      currentImg: require(`../../public/images/${count + 1}.jpg`)
+    })
+    this.setState({
+      count: count + 1
+    })
+    let img = document.getElementById('desiredHandSign')
+    img.src = this.state.currentImg
+  }
+  render() {
+    let correct = document.getElementById('correct')
+    return (
+      <Modal
+        onOpen={this.init}
+        trigger={<Button id="webcam-button">Start</Button>}
+      >
+        <Modal.Header>Submit a Photo</Modal.Header>
+        <Modal.Content id="modalbox" image>
+          <div id="correct" className="ui success message" hidden={true}>
+            <div className="content">
+              <div className="header">Good Job!</div>
+              <p>You can now move on to the next hand sign</p>
+            </div>
+          </div>
+          <div id="incorrect" hidden={true} className="ui negative message">
+            <div className="header">sorry that is not quite right</div>
+            <p>try again</p>
+          </div>
+          <>
+            <div id="webcam-container" />
+          </>
+          <Modal.Description>
+            <Header>Make the displayed hand sign</Header>
+            <Image id="desiredHandSign" src={this.state.currentImg} />
+            <p>Please keep the hand used to sign in the box for the photo</p>
+            <Button onClick={this.handleTest}>Test</Button>
+            <button
+              id="next"
+              type="button"
+              className="ui button"
+              onClick={this.handleNext}
+            >
+              next
+            </button>
+          </Modal.Description>
+        </Modal.Content>
+      </Modal>
+    )
+  }
 }
 
 export default WebcamModal
