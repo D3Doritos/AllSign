@@ -1,10 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-// import Camera from './camera.js'
-// import Photo from './photo.js'
-import * as tf from '@tensorflow/tfjs'
 import Webcam from 'react-webcam'
-import {webcam} from '@tensorflow/tfjs-data'
+
 const videoConstraints = {
   width: 1280,
   height: 720,
@@ -17,7 +14,7 @@ const Interactive = () => {
   const capture = React.useCallback(
     async () => {
       const imageSrc = webcamRef.current.getScreenshot();
-      const res = await axios.post('localhost:5000/result', imageSrc)
+      const res = await axios.post('https://allsignpython.herokuapp.com/result', imageSrc)
       console.log(res)
     },
     [webcamRef]
