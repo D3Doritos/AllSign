@@ -6,6 +6,8 @@ import * as tf from '@tensorflow/tfjs'
 import * as tmImage from '@teachablemachine/image'
 let webcam = new tmImage.Webcam(200, 200, true)
 
+//teachable machine version for display purposes. Python based model in learn-interactive.txt 
+
 class WebcamModal extends Component {
   constructor() {
     super()
